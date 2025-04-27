@@ -1,61 +1,102 @@
 .dashboard-container {
   width: 100%;
-  padding: 20px;
-  background: linear-gradient(135deg, #fdfbfb, #ebedee);
-  animation: fadeIn 1s ease-in-out;
+  background: linear-gradient(120deg, #89f7fe, #66a6ff);
+  animation: backgroundAnimation 10s infinite alternate;
+  perspective: 1000px;
+  overflow: hidden;
+}
+
+@keyframes backgroundAnimation {
+  0% {
+      background: linear-gradient(120deg, #89f7fe, #66a6ff);
+  }
+  50% {
+      background: linear-gradient(120deg, #ff9a9e, #fad0c4);
+  }
+  100% {
+      background: linear-gradient(120deg, #a18cd1, #fbc2eb);
+  }
 }
 
 .summary-cards {
   display: flex;
   gap: 20px;
   margin-bottom: 30px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
 }
 
 .summary-card {
   flex: 1;
-  background: linear-gradient(135deg, #ffffff, #f3f4f6);
+  background-color: white;
   border-radius: var(--border-radius);
   padding: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  position: relative;
-  overflow: hidden;
-  animation: zoomIn 0.8s ease-in-out;
+  box-shadow: var(--box-shadow);
+  transition: transform 0.5s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
 }
 
-.summary-card h3 {
-  font-size: 14px;
-  color: var(--secondary-color);
-  margin-bottom: 10px;
-  animation: slideInLeft 0.6s ease-out;
-}
-
-.card-value {
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--primary-color);
-  animation: slideInRight 0.6s ease-out;
+.summary-card:hover {
+  transform: rotateY(15deg) translateZ(10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .dashboard-content {
   display: flex;
   gap: 20px;
-  animation: fadeInUp 0.8s ease-in-out;
+  animation: slideIn 1s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+      opacity: 0;
+      transform: translateX(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateX(0);
+  }
 }
 
 .category-chart,
 .recent-transactions {
   flex: 1;
-  background: linear-gradient(135deg, #ffffff, #f9f9f9);
+  background-color: white;
   border-radius: var(--border-radius);
   padding: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  position: relative;
-  overflow: hidden;
+  box-shadow: var(--box-shadow);
+  transition: transform 0.5s ease, box-shadow 0.3s ease;
+}
+
+.category-chart:hover,
+.recent-transactions:hover {
+  transform: scale(1.05) rotateX(10deg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
 .recent-list {
   list-style: none;
   margin-top: 15px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.05);
+  }
 }
 
 .recent-item {
@@ -65,40 +106,27 @@
   padding: 10px;
   border-bottom: 1px solid var(--border-color);
   align-items: center;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .recent-item:hover {
-  background-color: rgba(240, 240, 255, 0.5);
-  transform: scale(1.02);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transform: translateZ(20px) rotateY(10deg);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
-.recent-date {
-  font-size: 12px;
-  color: var(--secondary-color);
-  white-space: nowrap;
-  animation: fadeIn 0.5s ease-in-out;
+.animated-image {
+  width: 150px;
+  height: 150px;
+  animation: bounce 2s infinite ease-in-out;
 }
 
-.recent-description {
-  font-weight: 500;
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-.recent-category {
-  font-size: 12px;
-  color: var(--secondary-color);
-  background-color: #f8f9fa;
-  padding: 5px 10px;
-  border-radius: 10px;
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-.recent-amount {
-  font-weight: 500;
-  text-align: right;
-  animation: fadeIn 0.5s ease-in-out;
+@keyframes bounce {
+  0%, 100% {
+      transform: translateY(0);
+  }
+  50% {
+      transform: translateY(-20px);
+  }
 }
 
 @media (max-width: 768px) {
@@ -141,59 +169,5 @@
 
   .recent-category {
       grid-area: cat;
-  }
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-      opacity: 0;
-  }
-  to {
-      opacity: 1;
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-      opacity: 0;
-      transform: translateY(30px);
-  }
-  to {
-      opacity: 1;
-      transform: translateY(0);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-      opacity: 0;
-      transform: translateX(-20px);
-  }
-  to {
-      opacity: 1;
-      transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-      opacity: 0;
-      transform: translateX(20px);
-  }
-  to {
-      opacity: 1;
-      transform: translateX(0);
-  }
-}
-
-@keyframes zoomIn {
-  from {
-      opacity: 0;
-      transform: scale(0.8);
-  }
-  to {
-      opacity: 1;
-      transform: scale(1);
   }
 }
